@@ -5,13 +5,13 @@ import json, uuid
 app = FastAPI()
 
 #request for uploading the images
-@app.post("/upload_images/")
+@app.post("/images/")
 async def upload_image(file: UploadFile):
     if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
     return {"filename": file.filename}
 
-@app.post("/download_images")
+@app.get("/images")
 def upload_download_image(file: UploadFile):
      if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
