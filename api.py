@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.exceptions import HTTPException
-import json
+import json, uuid
 
 app = FastAPI()
 
@@ -19,7 +19,11 @@ def upload_download_image(file: UploadFile):
      if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
 
-
+@app.post("/upload_videos")
+async def upload_videos(file: UploadFile):
+    if file.content_type!= "video/mp4":
+        raise HTTPException(400, detail="Invalid file type")
+    else:
 
 
 
