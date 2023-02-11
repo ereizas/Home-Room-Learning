@@ -9,10 +9,7 @@ app = FastAPI()
 async def upload_image(file: UploadFile):
     if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
-    else:
-        file.filename = f"{uuid.uuid4()}.jpg"
-        content = await file.read()
-    return {"content":content,"filename": file.filename}
+    return {"filename": file.filename}
 
 @app.post("/download_images")
 def upload_download_image(file: UploadFile):
@@ -24,7 +21,7 @@ async def upload_videos(file: UploadFile):
     if file.content_type!= "video/mp4":
         raise HTTPException(400, detail="Invalid file type")
     else:
-
+        pass
 
 
     
