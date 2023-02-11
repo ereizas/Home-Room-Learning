@@ -14,3 +14,16 @@ async def upload_image(file: UploadFile):
         content = await file.read()
     return {"content":content,"filename": file.filename}
 
+@app.post("/download_images")
+def upload_download_image(file: UploadFile):
+     if file.content_type!= "image/jpeg":
+        raise HTTPException(400, detail="Invalid file type")
+
+
+
+
+
+    
+
+if __name__ == "__main__":
+    uvicorn.run(app,host="127.0.0.1",port=8000)
