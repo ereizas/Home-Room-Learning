@@ -3,16 +3,23 @@ from fastapi.exceptions import HTTPException
 import json, uuid
 
 app = FastAPI()
+images = []
 
 #request for uploading the images
 @app.post("/images/")
 async def upload_image(file: UploadFile):
+    contents = {}
     if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
+    else:
+        file.filename = f"{uuid.uuid4()}.jpg"
+        contents = await file.read()
+        images.append(contents)
+
     return {"filename": file.filename}
 
-@app.get("/images")
-def upload_download_image(file: UploadFile):
+@app.get("/images/")
+def read_image(file: UploadFile):
      if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
 
