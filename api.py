@@ -1,34 +1,24 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import Response
 from fastapi.exceptions import HTTPException
-import json, uuid
+import uuid, os, uvicorn, io, PIL
 
 app = FastAPI()
-images = []
+current_image = 0
+
 
 #request for uploading the images
 @app.post("/images/")
-async def upload_image(file: UploadFile):
-    contents = {}
+def upload_image(file: UploadFile=File()):
     if file.content_type!= "image/jpeg":
         raise HTTPException(400, detail="Invalid file type")
-    else:
-        file.filename = f"{uuid.uuid4()}.jpg"
-        contents = await file.read()
-        images.append(contents)
-
-    return {"filename": file.filename}
-
-@app.get("/images/")
-def read_image(file: UploadFile):
-     if file.content_type!= "image/jpeg":
-        raise HTTPException(400, detail="Invalid file type")
-
-@app.post("/upload_videos")
-async def upload_videos(file: UploadFile):
-    if file.content_type!= "video/mp4":
-        raise HTTPException(400, detail="Invalid file type")
-    else:
-        pass
+    #file.filename = f"{uuid.uuid4()}.jpg"
+    print(file.file.read())
+    current_image = PIL.Picture.frombytes(io.BinaryIO(file.file.read()))
+    print(current_image)
+    
+    #decode for JSON compatibality
+    return {"data":current_image,"filename": file.filename}
 
 
     
