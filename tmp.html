@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h2>Upload</h2>
+<p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
+<p><label class="button" for="file" style="cursor: pointer;">Upload Image</label></p>
+<p><img id="output" width="200" /></p>
+<!-- <input type="text" class="form-control" placeholder="Input box"> -->
+<form action="/tmp.html">
+	<label for="fname" >Question: </label>
+	<input class="text" placeholder="" type="text" id="fname" name="fname" style="width: 400px;"><br><br>
+	<label for="lname">Answer: </label>
+	<input type="text" id="lname" name="lname" style="width: 400px;"><br><br>
+	<input type="submit" value="Submit">
+</form>
+  
+<script>
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+	ButtonClick_Test();
+};
+function ButtonClick_Test(){
+	document.getElementById("fname").value='What color is this persons shirt wearing?';
+};
+</script>
+
+</body>
+</html>
+
